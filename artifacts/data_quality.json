@@ -1,0 +1,92 @@
+{
+  "filas_crudas": 924867,
+  "periodo_escala_inconsistente": 409595,
+  "fuera_de_rango_o_no_numerico": 0,
+  "horas_duplicadas": 0,
+  "sensor_pegado": 6,
+  "picos_aislados": 7,
+  "horas_validas": 515259,
+  "dias_estacion_total": 42767,
+  "dias_descartados_menos_de_18h": 20833,
+  "meteo_horas_faltantes": {
+    "boundary_layer_height": 4368
+  },
+  "contraste_siata": {
+    "disponible": true,
+    "desfase_horas": 1,
+    "estaciones": {
+      "CEN-TRAF": {
+        "crudo": {
+          "horas_comparadas": 7991,
+          "correlacion": 1.0,
+          "error_abs_medio": 0.0
+        },
+        "limpio": {
+          "horas_comparadas": 7991,
+          "correlacion": 1.0,
+          "error_abs_medio": 0.0
+        }
+      },
+      "ITA-CJUS": {
+        "crudo": {
+          "horas_comparadas": 8438,
+          "correlacion": 1.0,
+          "error_abs_medio": 0.001
+        },
+        "limpio": {
+          "horas_comparadas": 8438,
+          "correlacion": 1.0,
+          "error_abs_medio": 0.001
+        }
+      },
+      "EST-HOSP": {
+        "crudo": {
+          "horas_comparadas": 8272,
+          "correlacion": 1.0,
+          "error_abs_medio": 0.0
+        },
+        "limpio": {
+          "horas_comparadas": 8272,
+          "correlacion": 1.0,
+          "error_abs_medio": 0.0
+        }
+      },
+      "MED-VILL": {
+        "crudo": {
+          "horas_comparadas": 7886,
+          "correlacion": 0.0757,
+          "error_abs_medio": 503.676
+        },
+        "limpio": {
+          "horas_comparadas": 4610,
+          "correlacion": 1.0,
+          "error_abs_medio": 0.004
+        }
+      },
+      "MED-ARAN": {
+        "crudo": {
+          "horas_comparadas": 8012,
+          "correlacion": 0.024,
+          "error_abs_medio": 550.447
+        },
+        "limpio": {
+          "horas_comparadas": 4800,
+          "correlacion": 1.0,
+          "error_abs_medio": 0.004
+        }
+      },
+      "BEL-FEVE": {
+        "crudo": {
+          "horas_comparadas": 8070,
+          "correlacion": 0.0566,
+          "error_abs_medio": 508.974
+        },
+        "limpio": {
+          "horas_comparadas": 4707,
+          "correlacion": 1.0,
+          "error_abs_medio": 0.004
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BRUMA · Calidad del aire del Valle de Aburrá</title>
+<meta name="description" content="Pronóstico explicable de PM2.5 a 24-72 h para el Valle de Aburrá, con incertidumbre y probabilidad de alerta naranja.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="/static/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%2338bdf8' opacity='.25'/><circle cx='16' cy='16' r='8' fill='%23a5b4fc'/></svg>">
+</head>
+<body>
+<div class="haze" aria-hidden="true"><span></span><span></span><span></span></div>
+
+<header class="top">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"></div>
+    <div>
+      <h1>BRUMA</h1>
+      <p>Pronóstico explicable de PM2.5 · Valle de Aburrá</p>
+    </div>
+  </div>
+  <div class="controls">
+    <label>Fecha de emisión
+      <input type="date" id="date">
+    </label>
+    <label>Estación
+      <select id="station"></select>
+    </label>
+    <div class="episodes" role="group" aria-label="Episodios">
+      <button data-date="2024-03-04">Episodio mar-2024</button>
+      <button data-date="2025-03-15" title="El modelo también se equivoca: aquí avisó y no pasó">Falsa alarma mar-2025</button>
+      <button data-date="2025-06-22">Día limpio</button>
+    </div>
+  </div>
+</header>
+
+<div class="replay">
+  <strong>Modo repetición</strong> · Cada día de 2024-2025 se pronosticó con un modelo entrenado solo con datos anteriores.
+  Por eso puedes comparar el pronóstico con <em>lo que realmente pasó</em>.
+</div>
+
+<main class="grid">
+  <section class="card hero" id="hero" aria-live="polite">
+    <div class="eyebrow">¿Habrá alerta mañana?</div>
+    <div class="answer" id="answer">—</div>
+    <div class="hero-sub" id="heroSub"></div>
+    <div class="gauge"><div class="gauge-fill" id="gaugeFill"></div><div class="gauge-mark" id="gaugeMark"></div></div>
+    <div class="gauge-legend"><span>0 %</span><span id="gaugeLabel"></span><span>100 %</span></div>
+    <div class="valley-line" id="valleyLine"></div>
+  </section>
+
+  <section class="card horizons" id="horizons"></section>
+
+  <section class="card map-card">
+    <div class="card-head">
+      <h2>Mapa del valle</h2>
+      <div class="tabs" id="mapTabs">
+        <button data-h="1" class="on">24 h</button><button data-h="2">48 h</button><button data-h="3">72 h</button>
+      </div>
+    </div>
+    <div id="map" role="img" aria-label="Mapa de estaciones coloreadas por el pronóstico"></div>
+    <div class="ica-legend" id="icaLegend"></div>
+  </section>
+
+  <section class="card chart-card">
+    <div class="card-head">
+      <h2 id="chartTitle">Pronóstico con incertidumbre</h2>
+      <span class="hint">Banda = intervalo del 80 % (calibrado con predicción conformal)</span>
+    </div>
+    <div id="chart" class="chart"></div>
+    <div class="chart-legend">
+      <span><i class="sw obs"></i>Observado</span>
+      <span><i class="sw fc"></i>Pronóstico (mediana)</span>
+      <span><i class="sw band"></i>Banda 80 %</span>
+      <span><i class="sw real"></i>Lo que pasó después</span>
+      <span><i class="sw thr"></i>Umbral naranja (37 µg/m³)</span>
+    </div>
+  </section>
+
+  <section class="card shap-card">
+    <div class="card-head">
+      <h2>¿Por qué este pronóstico?</h2>
+      <div class="tabs" id="shapTabs">
+        <button data-h="1" class="on">24 h</button><button data-h="2">48 h</button><button data-h="3">72 h</button>
+      </div>
+    </div>
+    <p class="hint">Contribuciones SHAP del modelo (µg/m³): parten del nivel típico y suman hasta el pronóstico.
+      Son asociaciones aprendidas, no causas.</p>
+    <div id="shap"></div>
+  </section>
+
+  <section class="card bulletin-card">
+    <div class="card-head">
+      <h2>Boletín del día</h2>
+      <span class="badge" id="bulletinSource"></span>
+    </div>
+    <div id="bulletin" class="bulletin"></div>
+  </section>
+
+  <section class="card metrics-card">
+    <div class="card-head"><h2>¿Qué tan bueno es? <span class="hint">Evaluación fuera de muestra 2024-2025</span></h2></div>
+    <div id="metrics" class="metrics"></div>
+    <p class="hint">MAE = error absoluto medio del promedio de 24 h. “Persistencia” supone que mañana será igual a hoy.
+      Detalles y límites en el <a href="https://github.com/saracastrillons/bruma/blob/main/MODEL_CARD.md" target="_blank" rel="noopener">model card</a>.</p>
+  </section>
+</main>
+
+<footer>
+  Datos: red de calidad del aire AMVA/SIATA vía datos.gov.co (IDEAM SISAIRE) · meteorología ERA5 vía Open-Meteo.
+  Hecho por <a href="https://github.com/saracastrillons" target="_blank" rel="noopener">saracastrillons</a>.
+</footer>
+
+<div class="tooltip" id="tooltip" role="tooltip"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

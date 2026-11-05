@@ -1,0 +1,819 @@
+{
+  "descripcion": "Evaluación fuera de muestra con origen móvil por años. Hiperparámetros y umbral elegidos solo con 2022-2023; 2024 y 2025 nunca se usaron para ajustar.",
+  "hiperparametros": {
+    "num_leaves": 15,
+    "min_child_samples": 30,
+    "learning_rate": 0.03,
+    "n_estimators": 500
+  },
+  "busqueda": [
+    {
+      "config": 0,
+      "num_leaves": 7,
+      "min_child_samples": 50,
+      "learning_rate": 0.05,
+      "n_estimators": 400,
+      "MAE_cv": 3.201218570060407
+    },
+    {
+      "config": 1,
+      "num_leaves": 15,
+      "min_child_samples": 30,
+      "learning_rate": 0.03,
+      "n_estimators": 500,
+      "MAE_cv": 3.196476015076047
+    },
+    {
+      "config": 2,
+      "num_leaves": 15,
+      "min_child_samples": 30,
+      "learning_rate": 0.03,
+      "n_estimators": 900,
+      "MAE_cv": 3.22014714395762
+    },
+    {
+      "config": 3,
+      "num_leaves": 31,
+      "min_child_samples": 20,
+      "learning_rate": 0.03,
+      "n_estimators": 500,
+      "MAE_cv": 3.2107158857162936
+    }
+  ],
+  "umbral_alerta": {
+    "1": 0.325,
+    "2": 0.075,
+    "3": 0.075
+  },
+  "desplazamiento_conformal": {
+    "1": {
+      "2024": 1.14,
+      "2025": 1.101
+    },
+    "2": {
+      "2024": 1.556,
+      "2025": 1.372
+    },
+    "3": {
+      "2024": 1.704,
+      "2025": 1.439
+    }
+  },
+  "evaluacion": {
+    "h1": {
+      "2024": {
+        "n": 6611,
+        "puntual": {
+          "LightGBM (BRUMA)": {
+            "MAE": 2.9146163774076195,
+            "RMSE": 3.840216208032411,
+            "sesgo": -0.24699846021961877,
+            "R2": 0.7674241510508325,
+            "skill_vs_persistencia": 0.1748509864835628
+          },
+          "LightGBM + meteorología ERA5 del día objetivo": {
+            "MAE": 2.983623344054859,
+            "RMSE": 3.9077839401470587,
+            "sesgo": -0.19604173748192827,
+            "R2": 0.7591679126476344,
+            "skill_vs_persistencia": 0.15531461425423465
+          },
+          "Regresión Ridge": {
+            "MAE": 2.960866990361676,
+            "RMSE": 3.922567694117513,
+            "sesgo": -0.26970770905478625,
+            "R2": 0.7573422553646756,
+            "skill_vs_persistencia": 0.16175710285984057
+          },
+          "Persistencia (hoy = mañana)": {
+            "MAE": 3.532230336174982,
+            "RMSE": 4.623620828897366,
+            "sesgo": 0.017207589442490557,
+            "R2": 0.6628542531277024,
+            "skill_vs_persistencia": 0.0
+          },
+          "Estacional semanal": {
+            "MAE": 4.998734590736788,
+            "RMSE": 7.018877006220028,
+            "sesgo": -0.017950087975990486,
+            "R2": 0.22305812958404336,
+            "skill_vs_persistencia": -0.4151779796302497
+          },
+          "Climatología estación-mes": {
+            "MAE": 5.402970234819682,
+            "RMSE": 7.025700517582192,
+            "sesgo": -0.12593514897304858,
+            "R2": 0.22154676284254238,
+            "skill_vs_persistencia": -0.5296200192512095
+          }
+        },
+        "intervalo_crudo": {
+          "cobertura_80": 0.6809862350627741,
+          "ancho_medio": 7.347954607163509,
+          "pinball_medio": 0.9777329774685369
+        },
+        "intervalo_conformal": {
+          "cobertura_80": 0.8036605657237936,
+          "ancho_medio": 9.628725798415886,
+          "pinball_medio": 0.9575596406404099
+        },
+        "alerta_naranja": {
+          "n_dias_naranja": 210,
+          "n": 6611,
+          "brier": 0.023746042557942056,
+          "brier_skill_vs_climatologia": 0.20941522131039791,
+          "roc_auc": 0.9685915891118203,
+          "pr_auc": 0.49509215488435887,
+          "tasa_base": 0.0317652397519286,
+          "umbral": 0.325,
+          "verdaderos_positivos": 68,
+          "falsas_alarmas": 66,
+          "eventos_perdidos": 142,
+          "recall": 0.3238095238095238,
+          "precision": 0.5074626865671642
+        },
+        "MAE_feb_abr": 3.8817967679640843,
+        "MAE_resto": 2.5707388303038856,
+        "MAE_persistencia_feb_abr": 4.395434626500723
+      },
+      "2025": {
+        "n": 6576,
+        "puntual": {
+          "LightGBM (BRUMA)": {
+            "MAE": 2.4604103013752376,
+            "RMSE": 3.15900336364368,
+            "sesgo": 0.37678789373770327,
+            "R2": 0.6788486266701901,
+            "skill_vs_persistencia": 0.1589125207623695
+          },
+          "LightGBM + meteorología ERA5 del día objetivo": {
+            "MAE": 2.3221006922223633,
+            "RMSE": 2.9987609493411225,
+            "sesgo": 0.37027609839607906,
+            "R2": 0.710603482758237,
+            "skill_vs_persistencia": 0.20619344803360973
+          },
+          "Regresión Ridge": {
+            "MAE": 2.4378693273783534,
+            "RMSE": 3.1625291311131125,
+            "sesgo": 0.3272721199181302,
+            "R2": 0.6781313517464506,
+            "skill_vs_persistencia": 0.16661811807189275
+          },
+          "Persistencia (hoy = mañana)": {
+            "MAE": 2.925272771395166,
+            "RMSE": 3.8942194866545905,
+            "sesgo": -0.01425885523093594,
+            "R2": 0.5119655741229467,
+            "skill_vs_persistencia": 0.0
+          },
+          "Estacional semanal": {
+            "MAE": 3.7372205074091043,
+            "RMSE": 4.910413197837917,
+            "sesgo": -0.0026758286429044253,
+            "R2": 0.22402865573777975,
+            "skill_vs_persistencia": -0.27756308538252705
+          },
+          "Climatología estación-mes": {
+            "MAE": 4.38508487291615,
+            "RMSE": 5.708417216871563,
+            "sesgo": 2.9741336112524928,
+            "R2": -0.048675257828484364,
+            "skill_vs_persistencia": -0.49903452279588545
+          }
+        },
+        "intervalo_crudo": {
+          "cobertura_80": 0.6777676399026764,
+          "ancho_medio": 6.195191838498068,
+          "pinball_medio": 0.7793668885462085
+        },
+        "intervalo_conformal": {
+          "cobertura_80": 0.8395681265206812,
+          "ancho_medio": 8.397359545654133,
+          "pinball_medio": 0.7670887375300014
+        },
+        "alerta_naranja": {
+          "n_dias_naranja": 8,
+          "n": 6576,
+          "brier": 0.0013019218714155924,
+          "brier_skill_vs_climatologia": 0.48767230497000913,
+          "roc_auc": 0.9724040803897686,
+          "pr_auc": 0.13538437197053899,
+          "tasa_base": 0.0012165450121654502,
+          "umbral": 0.325,
+          "verdaderos_positivos": 0,
+          "falsas_alarmas": 2,
+          "eventos_perdidos": 8,
+          "recall": 0.0,
+          "precision": 0.0
+        },
+        "MAE_feb_abr": 2.649082306662359,
+        "MAE_resto": 2.397774405757334,
+        "MAE_persistencia_feb_abr": 3.2790175167063444
+      },
+      "2024-2025": {
+        "n": 13187,
+        "puntual": {
+          "LightGBM (BRUMA)": {
+            "MAE": 2.6881161001657192,
+            "RMSE": 3.51704546122075,
+            "sesgo": 0.06406691201237866,
+            "R2": 0.7553474763079937,
+            "skill_vs_persistencia": 0.16765176189110642
+          },
+          "LightGBM + meteorología ERA5 del día objetivo": {
+            "MAE": 2.6537399013878007,
+            "RMSE": 3.484250689082659,
+            "sesgo": 0.08636564014253341,
+            "R2": 0.759888740855795,
+            "skill_vs_persistencia": 0.17829600768239406
+          },
+          "Regresión Ridge": {
+            "MAE": 2.700062210519534,
+            "RMSE": 3.563875710790354,
+            "sesgo": 0.027989974673574947,
+            "R2": 0.7487888940796927,
+            "skill_vs_persistencia": 0.1639527684195673
+          },
+          "Persistencia (hoy = mañana)": {
+            "MAE": 3.2295570256424826,
+            "RMSE": 4.275471019797278,
+            "sesgo": 0.0015161251084909741,
+            "R2": 0.6384555742372975,
+            "skill_vs_persistencia": 0.0
+          },
+          "Estacional semanal": {
+            "MAE": 4.369651659671129,
+            "RMSE": 6.059849425576904,
+            "sesgo": -0.010333228237280091,
+            "R2": 0.27369772920709456,
+            "skill_vs_persistencia": -0.3530188892706849
+          },
+          "Climatología estación-mes": {
+            "MAE": 4.8953783534306154,
+            "RMSE": 6.402773477763744,
+            "sesgo": 1.4199852398373825,
+            "R2": 0.18916962335651122,
+            "skill_vs_persistencia": -0.51580489663493
+          }
+        },
+        "intervalo_crudo": {
+          "cobertura_80": 0.6793812087662091,
+          "ancho_medio": 6.773103013416339,
+          "pinball_medio": 0.8788131776085816
+        },
+        "intervalo_conformal": {
+          "cobertura_80": 0.8215666944718283,
+          "ancho_medio": 9.014676774516493,
+          "pinball_medio": 0.8625769562653401
+        },
+        "alerta_naranja": {
+          "n_dias_naranja": 218,
+          "n": 13187,
+          "brier": 0.012553767011221949,
+          "brier_skill_vs_climatologia": 0.23101469135506514,
+          "roc_auc": 0.9781322221444079,
+          "pr_auc": 0.47173861466648814,
+          "tasa_base": 0.01653143247137332,
+          "umbral": 0.325,
+          "verdaderos_positivos": 68,
+          "falsas_alarmas": 68,
+          "eventos_perdidos": 150,
+          "recall": 0.3119266055045872,
+          "precision": 0.5
+        },
+        "MAE_feb_abr": 3.2827991391252085,
+        "MAE_resto": 2.4837278904234776,
+        "MAE_persistencia_feb_abr": 3.8529479253584205
+      }
+    },
+    "h2": {
+      "2024": {
+        "n": 6611,
+        "puntual": {
+          "LightGBM (BRUMA)": {
+            "MAE": 3.6167241045548555,
+            "RMSE": 4.758064264132953,
+            "sesgo": 0.28887784589018234,
+            "R2": 0.6429624700548873,
+            "skill_vs_persistencia": 0.18873866549389984
+          },
+          "LightGBM + meteorología ERA5 del día objetivo": {
+            "MAE": 3.681704261736034,
+            "RMSE": 4.928437344032869,
+            "sesgo": -0.22586909244589448,
+            "R2": 0.6169356450743082,
+            "skill_vs_persistencia": 0.17416307512336837
+          },
+          "Regresión Ridge": {
+            "MAE": 3.6301101434434515,
+            "RMSE": 4.87646994103465,
+            "sesgo": 0.08115985848302759,
+            "R2": 0.6249714200684247,
+            "skill_vs_persistencia": 0.18573606550048694
+          },
+          "Persistencia (hoy = mañana)": {
+            "MAE": 4.458149243309784,
+            "RMSE": 5.751373662500117,
+            "sesgo": 0.029894540664226265,
+            "R2": 0.4783293168044229,
+            "skill_vs_persistencia": 0.0
+          },
+          "Estacional semanal": {
+            "MAE": 5.057058197807854,
+            "RMSE": 7.062350039196332,
+            "sesgo": -0.022965241664909965,
+            "R2": 0.21340398710358421,
+            "skill_vs_persistencia": -0.1343402658394257
+          },
+          "Climatología estación-mes": {
+            "MAE": 5.402638970251877,
+            "RMSE": 7.025083808885174,
+            "sesgo": -0.12419569797176518,
+            "R2": 0.22168342047830736,
+            "skill_vs_persistencia": -0.21185691088279768
+          }
+        },
+        "intervalo_crudo": {
+          "cobertura_80": 0.6802299198305853,
+          "ancho_medio": 8.60400684973837,
+          "pinball_medio": 1.1770223308377117
+        },
+        "intervalo_conformal": {
+          "cobertura_80": 0.8219633943427621,
+          "ancho_medio": 11.716609641144645,
+          "pinball_medio": 1.1555796008013302
+        },
+        "alerta_naranja": {
+          "n_dias_naranja": 210,
+          "n": 6611,
+          "brier": 0.03158706761853864,
+          "brier_skill_vs_climatologia": -0.051638596272274295,
+          "roc_auc": 0.9311495227680199,
+          "pr_auc": 0.22829867724402228,
+          "tasa_base": 0.0317652397519286,
+          "umbral": 0.075,
+          "verdaderos_positivos": 46,
+          "falsas_alarmas": 131,
+          "eventos_perdidos": 164,
+          "recall": 0.21904761904761905,
+          "precision": 0.2598870056497175
+        },
+        "MAE_feb_abr": 5.461229024455274,
+        "MAE_resto": 2.9609169421379344,
+        "MAE_persistencia_feb_abr": 5.827378051287795
+      },
+      "2025": {
+        "n": 6576,
+        "puntual": {
+          "LightGBM (BRUMA)": {
+            "MAE": 2.7562339176852917,
+            "RMSE": 3.545456621729991,
+            "sesgo": 0.6289645860628834,
+            "R2": 0.5954669962359458,
+            "skill_vs_persistencia": 0.22382621302555628
+          },
+          "LightGBM + meteorología ERA5 del día objetivo": {
+            "MAE": 2.7434636808455473,
+            "RMSE": 3.507757379963533,
+            "sesgo": 0.6578032064539843,
+            "R2": 0.6040241489628488,
+            "skill_vs_persistencia": 0.22742239658053887
+          },
+          "Regresión Ridge": {
+            "MAE": 3.004257195894858,
+            "RMSE": 3.804983912220454,
+            "sesgo": 1.1193504299425336,
+            "R2": 0.534075812433596,
+            "skill_vs_persistencia": 0.15398120971487717
+          },
+          "Persistencia (hoy = mañana)": {
+            "MAE": 3.551052565726551,
+            "RMSE": 4.598980452784269,
+            "sesgo": -0.008791663332519696,
+            "R2": 0.3193360742466128,
+            "skill_vs_persistencia": 0.0
+          },
+          "Estacional semanal": {
+            "MAE": 3.769854580078113,
+            "RMSE": 4.944710558571552,
+            "sesgo": 0.0032687474392688147,
+            "R2": 0.21315107312165193,
+            "skill_vs_persistencia": -0.06161610122681904
+          },
+          "Climatología estación-mes": {
+            "MAE": 4.385099302735615,
+            "RMSE": 5.708378527058581,
+            "sesgo": 2.9746360652632005,
+            "R2": -0.04866104271050453,
+            "skill_vs_persistencia": -0.23487310355779445
+          }
+        },
+        "intervalo_crudo": {
+          "cobertura_80": 0.6665145985401459,
+          "ancho_medio": 6.913597528204292,
+          "pinball_medio": 0.8807959595146339
+        },
+        "intervalo_conformal": {
+          "cobertura_80": 0.8454987834549879,
+          "ancho_medio": 9.65736501513149,
+          "pinball_medio": 0.8642536402140069
+        },
+        "alerta_naranja": {
+          "n_dias_naranja": 8,
+          "n": 6576,
+          "brier": 0.0011006142847888025,
+          "brier_skill_vs_climatologia": 0.5668950992543269,
+          "roc_auc": 0.9461594092570037,
+          "pr_auc": 0.19775161324645002,
+          "tasa_base": 0.0012165450121654502,
+          "umbral": 0.075,
+          "verdaderos_positivos": 4,
+          "falsas_alarmas": 16,
+          "eventos_perdidos": 4,
+          "recall": 0.5,
+          "precision": 0.2
+        },
+        "MAE_feb_abr": 3.224735065445144,
+        "MAE_resto": 2.6006995078861426,
+        "MAE_persistencia_feb_abr": 4.079099365500504
+      },
+      "2024-2025": {
+        "n": 13187,
+        "puntual": {
+          "LightGBM (BRUMA)": {
+            "MAE": 3.1876209371282798,
+            "RMSE": 4.197389807519931,
+            "sesgo": 0.4584698989254202,
+            "R2": 0.6515404726833851,
+            "skill_vs_persistencia": 0.20424953498931453
+          },
+          "LightGBM + meteorología ERA5 del día objetivo": {
+            "MAE": 3.2138290770893487,
+            "RMSE": 4.279349634005317,
+            "sesgo": 0.2147943668371571,
+            "R2": 0.6377993062358579,
+            "skill_vs_persistencia": 0.19770699433833172
+          },
+          "Regresión Ridge": {
+            "MAE": 3.3180142169188773,
+            "RMSE": 4.375074314605517,
+            "sesgo": 0.5988773983266397,
+            "R2": 0.6214139522660949,
+            "skill_vs_persistencia": 0.17169845219930313
+          },
+          "Persistencia (hoy = mañana)": {
+            "MAE": 4.005804680347219,
+            "RMSE": 5.208674390242603,
+            "sesgo": 0.010602777755103534,
+            "R2": 0.4634031060487319,
+            "skill_vs_persistencia": 0.0
+          },
+          "Estacional semanal": {
+            "MAE": 4.415164591211147,
+            "RMSE": 6.098952210427986,
+            "sesgo": -0.009883061309326467,
+            "R2": 0.2642941714223158,
+            "skill_vs_persistencia": -0.1021916802065459
+          },
+          "Climatología estación-mes": {
+            "MAE": 4.895219477297684,
+            "RMSE": 6.402417029303108,
+            "sesgo": 1.4211078339182124,
+            "R2": 0.18925990023280792,
+            "skill_vs_persistencia": -0.22203149377552056
+          }
+        },
+        "intervalo_crudo": {
+          "cobertura_80": 0.6733904603018124,
+          "ancho_medio": 7.761045471228619,
+          "pinball_medio": 1.0293022566873697
+        },
+        "intervalo_conformal": {
+          "cobertura_80": 0.8336998559187078,
+          "ancho_medio": 10.68972007864654,
+          "pinball_medio": 1.0103032288575797
+        },
+        "alerta_naranja": {
+          "n_dias_naranja": 218,
+          "n": 13187,
+          "brier": 0.016384298442627596,
+          "brier_skill_vs_climatologia": -0.003624937382852522,
+          "roc_auc": 0.9402055076997299,
+          "pr_auc": 0.18991795602539785,
+          "tasa_base": 0.01653143247137332,
+          "umbral": 0.075,
+          "verdaderos_positivos": 50,
+          "falsas_alarmas": 147,
+          "eventos_perdidos": 168,
+          "recall": 0.22935779816513763,
+          "precision": 0.25380710659898476
+        },
+        "MAE_feb_abr": 4.374477290444719,
+        "MAE_resto": 2.7797070916283464,
+        "MAE_persistencia_feb_abr": 4.977858701745735
+      }
+    },
+    "h3": {
+      "2024": {
+        "n": 6611,
+        "puntual": {
+          "LightGBM (BRUMA)": {
+            "MAE": 3.8531781403573757,
+            "RMSE": 5.196306050238567,
+            "sesgo": -0.06173458774239451,
+            "R2": 0.5741636736991798,
+            "skill_vs_persistencia": 0.2081916429080829
+          },
+          "LightGBM + meteorología ERA5 del día objetivo": {
+            "MAE": 3.9688232810481052,
+            "RMSE": 5.404251442809447,
+            "sesgo": -0.5191230169953114,
+            "R2": 0.5393995512996965,
+            "skill_vs_persistencia": 0.18442715927393216
+          },
+          "Regresión Ridge": {
+            "MAE": 3.8847728322246278,
+            "RMSE": 5.2337397668282275,
+            "sesgo": 0.10838706841418791,
+            "R2": 0.5680062019700236,
+            "skill_vs_persistencia": 0.2016990956785084
+          },
+          "Persistencia (hoy = mañana)": {
+            "MAE": 4.866301429943205,
+            "RMSE": 6.242154728262721,
+            "sesgo": 0.0477315567628095,
+            "R2": 0.38549938546040896,
+            "skill_vs_persistencia": 0.0
+          },
+          "Estacional semanal": {
+            "MAE": 5.092898322438204,
+            "RMSE": 7.077964023606933,
+            "sesgo": -0.023038610348266132,
+            "R2": 0.2099220088116973,
+            "skill_vs_persistencia": -0.04656449990966638
+          },
+          "Climatología estación-mes": {
+            "MAE": 5.402524609948742,
+            "RMSE": 7.024835835461199,
+            "sesgo": -0.12339226979324011,
+            "R2": 0.2217383659924378,
+            "skill_vs_persistencia": -0.11019111490012978
+          }
+        },
+        "intervalo_crudo": {
+          "cobertura_80": 0.6908183330812283,
+          "ancho_medio": 9.50108561004356,
+          "pinball_medio": 1.2547738951233465
+        },
+        "intervalo_conformal": {
+          "cobertura_80": 0.8342157011042203,
+          "ancho_medio": 12.909218106655777,
+          "pinball_medio": 1.2363773437767296
+        },
+        "alerta_naranja": {
+          "n_dias_naranja": 210,
+          "n": 6611,
+          "brier": 0.029319143289925385,
+          "brier_skill_vs_climatologia": 0.02386815181202062,
+          "roc_auc": 0.9233616771189025,
+          "pr_auc": 0.24948764737505147,
+          "tasa_base": 0.0317652397519286,
+          "umbral": 0.075,
+          "verdaderos_positivos": 53,
+          "falsas_alarmas": 135,
+          "eventos_perdidos": 157,
+          "recall": 0.2523809523809524,
+          "precision": 0.28191489361702127
+        },
+        "MAE_feb_abr": 6.052336749923318,
+        "MAE_resto": 3.0712751202656507,
+        "MAE_persistencia_feb_abr": 6.637620545077296
+      },
+      "2025": {
+        "n": 6576,
+        "puntual": {
+          "LightGBM (BRUMA)": {
+            "MAE": 2.8840085551371093,
+            "RMSE": 3.720019275789648,
+            "sesgo": 0.7430867890913482,
+            "R2": 0.5546515067169384,
+            "skill_vs_persistencia": 0.24271642206943356
+          },
+          "LightGBM + meteorología ERA5 del día objetivo": {
+            "MAE": 2.893337679824515,
+            "RMSE": 3.7250503836029454,
+            "sesgo": 0.8215023919651218,
+            "R2": 0.5534460767148432,
+            "skill_vs_persistencia": 0.24026677853087508
+          },
+          "Regresión Ridge": {
+            "MAE": 3.184682100713442,
+            "RMSE": 4.02273068130031,
+            "sesgo": 1.327279964152178,
+            "R2": 0.4792233272265878,
+            "skill_vs_persistencia": 0.16376549871744317
+          },
+          "Persistencia (hoy = mañana)": {
+            "MAE": 3.808360090176863,
+            "RMSE": 4.925221838593692,
+            "sesgo": -0.01638299419914406,
+            "R2": 0.21934130760776072,
+            "skill_vs_persistencia": 0.0
+          },
+          "Estacional semanal": {
+            "MAE": 3.772224956022736,
+            "RMSE": 4.945042613129143,
+            "sesgo": 0.0005820180759559355,
+            "R2": 0.21304539027448288,
+            "skill_vs_persistencia": 0.009488371188252964
+          },
+          "Climatología estación-mes": {
+            "MAE": 4.38512106765151,
+            "RMSE": 5.708369209936468,
+            "sesgo": 2.9748944724809068,
+            "R2": -0.048657619498476246,
+            "skill_vs_persistencia": -0.15144601976118865
+          }
+        },
+        "intervalo_crudo": {
+          "cobertura_80": 0.6750304136253041,
+          "ancho_medio": 7.396954248359584,
+          "pinball_medio": 0.9202704192404445
+        },
+        "intervalo_conformal": {
+          "cobertura_80": 0.8496046228710462,
+          "ancho_medio": 10.275522655253146,
+          "pinball_medio": 0.9054725303714215
+        },
+        "alerta_naranja": {
+          "n_dias_naranja": 8,
+          "n": 6576,
+          "brier": 0.0014034557297703141,
+          "brier_skill_vs_climatologia": 0.44772974808067756,
+          "roc_auc": 0.8961441839220462,
+          "pr_auc": 0.08866899215529807,
+          "tasa_base": 0.0012165450121654502,
+          "umbral": 0.075,
+          "verdaderos_positivos": 3,
+          "falsas_alarmas": 24,
+          "eventos_perdidos": 5,
+          "recall": 0.375,
+          "precision": 0.1111111111111111
+        },
+        "MAE_feb_abr": 3.453777499415807,
+        "MAE_resto": 2.6948549599025977,
+        "MAE_persistencia_feb_abr": 4.434252370443493
+      },
+      "2024-2025": {
+        "n": 13187,
+        "puntual": {
+          "LightGBM (BRUMA)": {
+            "MAE": 3.369879498330495,
+            "RMSE": 4.520789556149259,
+            "sesgo": 0.33960805076967737,
+            "R2": 0.5957757927677692,
+            "skill_vs_persistencia": 0.2233036314659803
+          },
+          "LightGBM + meteorología ERA5 del día objetivo": {
+            "MAE": 3.432507719233718,
+            "RMSE": 4.643415856836369,
+            "sesgo": 0.14941059105229676,
+            "R2": 0.5735492365601043,
+            "skill_vs_persistencia": 0.20886895753553902
+          },
+          "Regresión Ridge": {
+            "MAE": 3.5356565320488826,
+            "RMSE": 4.669269000155677,
+            "sesgo": 0.7162159667514159,
+            "R2": 0.5687873176420921,
+            "skill_vs_persistencia": 0.1850950189208722
+          },
+          "Persistencia (hoy = mañana)": {
+            "MAE": 4.3387347164903,
+            "RMSE": 5.624115008264399,
+            "sesgo": 0.01575936542847974,
+            "R2": 0.37439224715455865,
+            "skill_vs_persistencia": 0.0
+          },
+          "Estacional semanal": {
+            "MAE": 4.434314258015052,
+            "RMSE": 6.108153730521763,
+            "sesgo": -0.011259642234390018,
+            "R2": 0.26207257059484446,
+            "skill_vs_persistencia": -0.02202935827384911
+          },
+          "Climatología estación-mes": {
+            "MAE": 4.895172998957114,
+            "RMSE": 6.4022764815191655,
+            "sesgo": 1.421639474894315,
+            "R2": 0.18929549506305632,
+            "skill_vs_persistencia": -0.12824897552550296
+          }
+        },
+        "intervalo_crudo": {
+          "cobertura_80": 0.68294532494123,
+          "ancho_medio": 8.451812247304966,
+          "pinball_medio": 1.0879660648809895
+        },
+        "intervalo_conformal": {
+          "cobertura_80": 0.8418897398953514,
+          "ancho_medio": 11.595865464779408,
+          "pinball_medio": 1.0713640691158284
+        },
+        "alerta_naranja": {
+          "n_dias_naranja": 218,
+          "n": 13187,
+          "brier": 0.015398345428730286,
+          "brier_skill_vs_climatologia": 0.056770745853839566,
+          "roc_auc": 0.9383975620056578,
+          "pr_auc": 0.21216286419699257,
+          "tasa_base": 0.01653143247137332,
+          "umbral": 0.075,
+          "verdaderos_positivos": 56,
+          "falsas_alarmas": 159,
+          "eventos_perdidos": 162,
+          "recall": 0.25688073394495414,
+          "precision": 0.26046511627906976
+        },
+        "MAE_feb_abr": 4.789651125380829,
+        "MAE_resto": 2.8819143772747817,
+        "MAE_persistencia_feb_abr": 5.566965212072612
+      }
+    }
+  },
+  "ajuste": {
+    "h1": {
+      "n": 4438,
+      "LightGBM (BRUMA)": {
+        "MAE": 2.8357909629485745,
+        "RMSE": 3.6068569895565745,
+        "sesgo": 0.0983988558386997,
+        "R2": 0.6887282304012567,
+        "skill_vs_persistencia": 0.17047589755861825
+      },
+      "LightGBM + meteorología ERA5 del día objetivo": {
+        "MAE": 2.7091565084605964,
+        "RMSE": 3.448374580755038,
+        "sesgo": 0.057831972005081986,
+        "R2": 0.7154813373079987,
+        "skill_vs_persistencia": 0.2075189425396453
+      },
+      "Persistencia": {
+        "MAE": 3.4185757286648166,
+        "RMSE": 4.419025660942899,
+        "sesgo": -0.03615434638355175,
+        "R2": 0.5327654650417742,
+        "skill_vs_persistencia": 0.0
+      }
+    },
+    "h2": {
+      "n": 4438,
+      "LightGBM (BRUMA)": {
+        "MAE": 3.347078747455188,
+        "RMSE": 4.203560636335783,
+        "sesgo": 0.13289944928985825,
+        "R2": 0.5772179681980808,
+        "skill_vs_persistencia": 0.21275825638447077
+      },
+      "LightGBM + meteorología ERA5 del día objetivo": {
+        "MAE": 3.187269407182039,
+        "RMSE": 3.9927804247534184,
+        "sesgo": 0.14527429266662945,
+        "R2": 0.618554282087427,
+        "skill_vs_persistencia": 0.2503458344414061
+      },
+      "Persistencia": {
+        "MAE": 4.25165303364531,
+        "RMSE": 5.373713735044922,
+        "sesgo": -0.026818005717046137,
+        "R2": 0.3090749429181615,
+        "skill_vs_persistencia": 0.0
+      }
+    },
+    "h3": {
+      "n": 4438,
+      "LightGBM (BRUMA)": {
+        "MAE": 3.4452834411197903,
+        "RMSE": 4.358956740967197,
+        "sesgo": 0.08465097229718066,
+        "R2": 0.5453816026667527,
+        "skill_vs_persistencia": 0.24233507891337613
+      },
+      "LightGBM + meteorología ERA5 del día objetivo": {
+        "MAE": 3.307756859733426,
+        "RMSE": 4.185356094394467,
+        "sesgo": 0.10966194307762954,
+        "R2": 0.5808719596573837,
+        "skill_vs_persistencia": 0.27257905396337834
+      },
+      "Persistencia": {
+        "MAE": 4.547238951195803,
+        "RMSE": 5.760948086384224,
+        "sesgo": 0.02927053957954234,
+        "R2": 0.2059098446398835,
+        "skill_vs_persistencia": 0.0
+      }
+    }
+  }
+}

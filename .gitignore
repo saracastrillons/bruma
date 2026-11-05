@@ -1,0 +1,15 @@
+# Secretos
+.env
+
+# Datos crudos (se regeneran con scripts/download_data.py)
+data/raw/
+
+# Modelos finales (se regeneran con scripts/train.py)
+artifacts/models/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ipynb_checkpoints/
